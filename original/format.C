@@ -31,6 +31,7 @@ int main(int argc, char * argv[]){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q * cth;
+      syst = ds * 0.1115;
       fprintf(f1000, "%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%s,%s\n",
 	      W, q, Q, cth, t, ds, stat, syst,
 	      "ds/dcth", "mb", "clas2013");
@@ -45,6 +46,7 @@ int main(int argc, char * argv[]){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q * cth;
+      syst = ds * 0.1135;
       fprintf(f1001, "%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%s,%s\n",
 	      W, q, Q, cth, t, ds, stat, syst,
 	      "ds/dcth", "mb", "clas2013");
