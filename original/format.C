@@ -42,7 +42,7 @@ int main(int argc, char * argv[]){
     for (int i = 0; i < 8; i++) file2.getline(tmp, 256);
     FILE * f1001 = fopen("../datasets/1001.csv","w");
     fprintf(f1001, "W,q,Q,cth,t,ds,stat,syst,obs,unit,experiment\n");
-    while (file1 >> W >> cth >> ds >> stat){
+    while (file2 >> W >> cth >> ds >> stat){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q * cth;
