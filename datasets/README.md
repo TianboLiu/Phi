@@ -1,6 +1,8 @@
 # Data sets for fit
 |ID      |Experiment|points  |observable|Notes   |References|
 |--------|--------|------|-----|------|--------|
-|1000|CLAS2013|1993|ds/dcth|charged|[PRC89(2014)055208](https://inspirehep.net/record/1285225)|
-|1001|CLAS2013|617 |ds/dcth|neutral|[PRC89(2014)055208](https://inspirehep.net/record/1285225)|
+|1000|CLAS g11a|1993|ds/dcth|charged|[PRC89(2014)055208](https://inspirehep.net/record/1285225)|
+|1001|CLAS g11a|617 |ds/dcth|neutral|[PRC89(2014)055208](https://inspirehep.net/record/1285225)|
+|1002|ZEUS|4|ds/dt|charged|[PLB377(1996)259](https://inspirehep.net/record/415642)|
+|1003|ZEUS|4|ds/dt|charged|EPJC14(2000)213](https://inspirehep.net/record/508770)|
 |---|SAPHIR2003|23|ds/dt|charged|[EPJA17(2003)269](https://inspirehep.net/record/621792#)|
