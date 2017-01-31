@@ -1,7 +1,12 @@
-W:60-80GeV <70>
-syst~6%+9%
-t/GeV**2 dsig/dt(mb/GeV**2) error
-0.145	2.53 0.60
-0.245	1.24 0.19
-0.345	0.47 0.13
-0.445	0.31 0.07
+Path: /HepData/7888/d3-x1-y1
+Numerical values of dsig/dt distribution read from plot
+Location: F 4A
+M(P=1_2) : 60.0 - 80.0 GeV
+RE : GAMMA P --> PHI < K+ K- > P
+x : ABS(T) IN GEV
+y : DSIG/DT IN MUB/GEV**2
+xdesc	x	xlow	xhigh	y	dy+	dy-	
+	0.145	0.1	0.2	2.53	+0.6	-0.6
+	0.245	0.2	0.3	1.24	+0.19	-0.19
+	0.345	0.3	0.4	0.47	+0.13	-0.13
+	0.445	0.4	0.5	0.31	+0.07	-0.07
