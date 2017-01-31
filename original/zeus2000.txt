@@ -1,7 +1,13 @@
-W=85-105GeV
-15% syst not included
--t/GeV**2 dsig/dt(mb/GeV**2) stat syst1+ syst1- syst2+ syst2-
-0.462	0.333 0.070 +0.094 -0.047 +0.015 -0.011
-0.628	0.168 0.027 +0.046 -0.028 +0.008 -0.008
-0.859	0.027 0.007 +0.011 -0.007 +0.003 -0.004
-1.217	0.004 0.003 +0.004 -0.002 +0.002 -0.002
+Path: /HepData/947/d7-x1-y1
+Differential cross section for elastic PHI photoproduction
+Location: F 13A,F 14,T 7(C=PREPRINT)
+M(P=1_2) IN GEV : 85 TO 105 (MEAN=94)
+RE : GAMMA P --> PHI P
+SQRT(S) : 0.0 GeV
+x : -T IN GEV**2
+y : D(SIG)/DT IN MUB/GEV**2
+xdesc	x	xlow	xhigh	y	dy+	dy-	dy+	dy-	dy+	dy-	
+	0.462	0.462	0.462	0.333	+0.07	-0.07	+0.094	-0.047	+0.015	-0.011
+	0.628	0.628	0.628	0.168	+0.027	-0.027	+0.046	-0.028	+0.008	-0.008
+	0.859	0.859	0.859	0.027	+0.007	-0.007	+0.011	-0.007	+0.003	-0.004
+	1.217	1.217	1.217	0.004	+0.003	-0.003	+0.004	-0.002	+0.002	-0.002
