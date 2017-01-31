@@ -21,105 +21,121 @@ int main(int argc, char * argv[]){
   const double Mphi = 1.019455;
 
   if (opt == 1){//clas 2013
-    double W, q, Q, cth, t, ds, stat, syst;
+    double W, q, Q, cth, t, t0, ds, stat, syst;
     ifstream file1("clasdb_E63M2.txt");//charged mode
     for (int i = 0; i < 8; i++) file1.getline(tmp, 256);
-    FILE * f1000 = fopen("../datasets/1000.csv","w");
-    fprintf(f1000, "W,q,Q,cth,t,ds,stat,syst+,syst-,obs,unit,experiment\n");
+    FILE * f1000 = fopen("datasets/1000.csv","w");
+    fprintf(f1000, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
     while (file1 >> W >> cth >> ds >> stat){
       if (W == 2.735 || W == 2.745) continue;
+      n++;
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q * cth;
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
       syst = ds * 0.1115;
-      fprintf(f1000, "%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%s,%s\n",
-	      W, q, Q, cth, t, ds, stat, syst, syst,
-	      "ds/dcth", "mb", "clas2013");
+      fprintf(f1000, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dcth", ds, stat, syst, -syst,"mub");
     }
     fclose(f1000);
+    cout << "1000.csv written" << endl;
     file1.close();
     ifstream file2("clasdb_E63M3.txt");//neutral mode
     for (int i = 0; i < 8; i++) file2.getline(tmp, 256);
-    FILE * f1001 = fopen("../datasets/1001.csv","w");
-    fprintf(f1001, "W,q,Q,cth,t,ds,stat,syst+,syst-,obs,unit,experiment\n");
+    FILE * f1001 = fopen("datasets/1001.csv","w");
+    fprintf(f1001, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    n = 0;
     while (file2 >> W >> cth >> ds >> stat){
+      n++;
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q * cth;
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
       syst = ds * 0.1135;
-      fprintf(f1001, "%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%s,%s\n",
-	      W, q, Q, cth, t, ds, stat, syst, syst,
-	      "ds/dcth", "mb", "clas2013");
+      fprintf(f1001, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dcth", ds, stat, syst, -syst,"mub");
     }
     fclose(f1001);
+    cout << "1001.csv written" << endl;
     file2.close();
   }
 
   if (opt == 2){//zeus 1996
-    double W, q, Q, cth, t, ds, stat, syst;
+    double W, q, Q, cth, t, t0, ds, stat, syst, temp;
     ifstream file("zeus1996.txt");
-    for (int i = 0; i < 3; i++) file.getline(tmp, 256);
-    FILE * f1002 = fopen("../datasets/1002.csv", "w");
-    fprintf(f1002, "W,q,Q,cth,t,ds,stat,syst+,syst-,obs,unit,experiment\n");
+    for (int i = 0; i < 8; i++) file.getline(tmp, 256);
+    FILE * f1002 = fopen("datasets/1002.csv", "w");
+    fprintf(f1002, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
     W = 70.0;
     q = (W * W - Mp * Mp) / (2.0 * W);
     Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
-    while (file >> t >> ds >> stat){
+    t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+    int n = 0;
+    while (file >> t >> temp >> temp >> ds >> stat >> temp){
+      n++;
+      t = -t;
       cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
       syst = sqrt(0.06*0.06+0.09*0.09) * ds;
-      fprintf(f1002, "%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%s,%s\n",
-	      W, q, Q, cth, t, ds, stat, syst, syst,
-	      "ds/dt", "mb/GeV2", "zeus1996");
+      fprintf(f1002, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, syst, -syst,"mub/GeV2");
     }
     fclose(f1002);
+    cout << "1002.csv written" << endl;
     file.close();
   }
 
   if (opt == 3){//zeus 2000
-    double W, q, Q, cth, t, ds, stat, syst1, syst2, syst3, syst4;
+    double W, q, Q, cth, t, t0, ds, stat, syst1, syst2, syst3, syst4, temp;
     ifstream file("zeus2000.txt");
-    for (int i = 0; i < 3; i++) file.getline(tmp, 256);
+    for (int i = 0; i < 9; i++) file.getline(tmp, 256);
     FILE * f1003 = fopen("../datasets/1003.csv", "w");
-    fprintf(f1003, "W,q,Q,cth,t,ds,stat,syst+,syst-,obs,unit,experiment\n");
-    W = 95.0;
+    fprintf(f1003, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    W = 94.0;
     q = (W * W - Mp * Mp) / (2.0 * W);
     Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
-    while (file >> t >> ds >> stat >> syst1 >> syst2 >> syst3 >> syst4){
+    t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+    int n = 0;
+    while (file >> t >> temp >> temp >> ds >> stat >> temp >> syst1 >> syst2 >> syst3 >> syst4){
+      n++;
+      t = -t;
       cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
-      fprintf(f1003, "%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%s,%s\n",
-	      W, q, Q, cth, t, ds, stat, 
-	      sqrt(syst1*syst1 + syst3*syst3 + 0.15*0.15*ds*ds), 
-	      sqrt(syst2*syst2 + syst4*syst4 + 0.15*0.15*ds*ds),
-	      "ds/dt", "mb/GeV2", "zeus2000");
+      fprintf(f1003, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, 
+	      sqrt(syst1*syst1+syst3*syst3+0.15*0.15*ds*ds), -sqrt(syst2*syst2+syst4*syst4+0.15*0.15*ds*ds),
+	      "mub/GeV2");
     }
     fclose(f1003);
+    cout << "1003.csv written" << endl;
     file.close();
   }
 
   if (opt == 4){//desy094
-    double Eg[7] = {3.25, 3.75, 4.25, 4.8, 5.35, 5.9, 6.45};
-    double W[7], q[7], Q[7], t, cth, ds[7], stat[7];
+    double Eg[8] = {3.0, 3.5, 4.0, 4.5, 5.1, 5.6, 6.2, 6.7};
+    double W[7], q, Q, t, t0, cth, ds[7], stat[7], syst, temp;
     ifstream file("desy094.txt");
-    for (int i = 0; i < 9; i++) file.getline(tmp, 256);
+    for (int i = 0; i < 8; i++) file.getline(tmp, 256);
     FILE * f1004 = fopen("../datasets/1004.csv", "w");
-    fprintf(f1004, "W,q,Q,cth,t,ds,stat,syst+,syst-,obs,unit,experiment\n");
-    for (int i = 0; i < 7; i++){ 
-      W[i] = sqrt(pow(Eg[i] + Mp, 2) - Eg[i] * Eg[i]);
-      q[i] = (W[i] * W[i] - Mp * Mp) / (2.0 * W[i]);
-      Q[i] = sqrt((W[i] * W[i] - pow(Mp + Mphi, 2)) * (W[i] * W[i] - pow(Mp - Mphi, 2))) / (2.0 * W[i]);
-    }
-    while (file >> t >> t >> t >> ds[0] >> stat[0] >> stat[0] >> ds[1] >> stat[1] >> stat[1] >> ds[2] >> stat[2] >> stat[2] >> ds[3] >> stat[3] >> stat[3] >> ds[4] >> stat[4] >> stat[4] >> ds[5] >> stat[5] >> stat[5] >> ds[6] >> stat[6] >> stat[6]){
+    fprintf(f1004, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    for (int i = 0; i < 7; i++) 
+      W[i] = 0.5 * (sqrt(pow(Eg[i] + Mp, 2) - Eg[i] * Eg[i]) + sqrt(pow(Eg[i+1] + Mp, 2) - Eg[i+1] * Eg[i+1]));
+    int n = 0;
+    while (file >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp >> ds[2] >> stat[2] >> temp >> ds[3] >> stat[3] >> temp >> ds[4] >> stat[4] >> temp >> ds[5] >> stat[5] >> temp >> ds[6] >> stat[6] >> temp){
       for (int i = 0; i < 7; i++){
 	if (ds[i] > 0){
-	  cth = (t + 2.0 * q[i] * sqrt(Mphi * Mphi + Q[i] * Q[i]) - Mphi * Mphi) / (2.0 * q[i] * Q[i]);
-	  fprintf(f1004, "%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%s,%s\n",
-		  W[i], q[i], Q[i], cth, t, ds[i], abs(stat[i]), 
-		  0.04*ds[i], 0.04*ds[i],
-		  "ds/dt", "mb/GeV2", "desy094");
+	  n++;
+	  t = -t;
+	  q = (W[i] * W[i] - Mp * Mp) / (2.0 * W[i]);
+	  Q = sqrt((W[i] * W[i] - pow(Mp + Mphi, 2)) * (W[i] * W[i] - pow(Mp - Mphi, 2))) / (2.0 * W[i]);
+	  t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+	  cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+	  fprintf(f1004, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+		  n, W[i], q, Q, cth, t, t0, "ds/dt", ds[i], stat[i], 0.04 * ds[i], -0.04 * ds[i], "mub/GeV2"); 
 	}
       }
     }
     fclose(f1004);
+    cout << "1004.csv written" << endl;
     file.close();
   }
 
