@@ -1,4 +1,3 @@
-systematic error 4.0%
 Path: /HepData/2596/d1-x1-y1
 Location: T 3
 P IN GEV : 3.0 TO 3.5 : 3.5 TO 4.0 : 4.0 TO 4.5 : 4.5 TO 5.1 : 5.1 TO 5.6 : 5.6 TO 6.2 : 6.2 TO 6.7
