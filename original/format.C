@@ -179,6 +179,68 @@ int main(int argc, char * argv[]){
     cout << "1006.csv written" << endl;
     file.close();
   }
+
+  if (opt == 7){//LAMP2
+    double W, q, Q, cth, t, t0, ds[3], stat[3], temp;
+    ifstream file1("lamp2a.txt");
+    for (int i = 0; i < 9; i++) file1.getline(tmp, 256);
+    FILE * f1007 = fopen("../datasets/1007.csv", "w");
+    fprintf(f1007, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    while (file1 >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp){
+      n++;
+      t = -t;
+      W = 0.5 * (2.476 + 2.83);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dt", ds[0], stat[0], 0., -0., "mub/GeV2");
+      n++;
+      W = 0.5 * (3.144 + 2.83);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dt", ds[1], stat[1], 0., -0., "mub/GeV2");
+    }
+    file1.close();
+    ifstream file2("lamp2b.txt");
+    for (int i = 0; i < 9; i++) file2.getline(tmp, 256);
+    while (file1 >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp >> ds[2] >> stat[2] >> temp){
+      n++;
+      t = -t;
+      W = 0.5 * (2.476 + 2.695);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dt", ds[0], stat[0], 0., -0., "mub/GeV2");
+      n++;
+      W = 0.5 * (2.695 + 2.896);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dt", ds[1], stat[1], 0., -0., "mub/GeV2");
+      n++;
+      W = 0.5 * (2.896 + 3.144);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      n, W, q, Q, cth, t, t0, "ds/dt", ds[2], stat[2], 0., -0., "mub/GeV2");
+    }
+    file2.close();
+    fclose(f1007);
+    cout << "1007.csv written" << endl;
+  }
+      
 	     
 
   return 0;
