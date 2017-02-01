@@ -139,6 +139,24 @@ int main(int argc, char * argv[]){
     file.close();
   }
 
+  if (opt == 5){//CERN-WA-004
+    ifstream file("cern-wa-004.txt");
+    for (int i = 0; i < 7; i++) file.getline(tmp, 256);
+    double Eg, q, Q, stat, syst, sig, temp;
+    file >> Eg >> temp >> temp >> sig >> stat >> temp >> syst >> temp;
+    FILE * f1005 = fopen("../datasets/1005.csv", "w");
+    fprintf(f1005, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    double W = sqrt(pow(Eg + Mp, 2) - Eg * Eg);
+    q = (W * W - Mp * Mp) / (2.0 * W);
+    Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+    double t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+    fprintf(f1005, "%d,%.6E,%.6E,%.6E,%s,%s,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	    1, W, q, Q, "NA", "NA", t0, "sig*Br", sig/1000, stat/1000, syst/1000, -syst/1000, "mub");
+    fclose(f1005);
+    cout << "1005.csv written" << endl;
+    file.close();
+  }
+	     
 
   return 0;
 }
