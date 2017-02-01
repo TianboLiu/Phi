@@ -211,7 +211,7 @@ int main(int argc, char * argv[]){
     file1.close();
     ifstream file2("lamp2b.txt");
     for (int i = 0; i < 9; i++) file2.getline(tmp, 256);
-    while (file1 >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp >> ds[2] >> stat[2] >> temp){
+    while (file2 >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp >> ds[2] >> stat[2] >> temp){
       n++;
       t = -t;
       W = 0.5 * (2.476 + 2.695);
