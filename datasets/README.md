@@ -7,5 +7,6 @@
 |1003|ZEUS|4|ds/dt|charged|[EPJC14(2000)213](https://inspirehep.net/record/508770)|
 |1004|DESY-094|110|ds/dt|---|[NPB144(1978)22](https://inspirehep.net/record/130415)|
 |1005|CERN-WA-004|1|sigma Br|---|[NPB172(1980)1](https://inspirehep.net/record/153022)|
+|1006|BONN 1974|5|ds/dt|---|[NPB70(1974)257](https://inspirehep.net/record/94756)|
 |---|DESY-094|---|---|---|[PLB56(1975)408](https://inspirehep.net/record/98876)|
 |---|SAPHIR|23|ds/dt|charged|[EPJA17(2003)269](https://inspirehep.net/record/621792#)|
