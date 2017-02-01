@@ -194,6 +194,7 @@ int main(int argc, char * argv[]){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      if (t > -0.05) t = 0.5 * (-0.05 + t0);
       cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
       fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
 	      n, W, q, Q, cth, t, t0, "ds/dt", ds[0], stat[0], 0., -0., "mub/GeV2");
@@ -202,6 +203,7 @@ int main(int argc, char * argv[]){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      if (t > -0.05) t = 0.5 * (-0.05 + t0);
       cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
       fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
 	      n, W, q, Q, cth, t, t0, "ds/dt", ds[1], stat[1], 0., -0., "mub/GeV2");
@@ -216,6 +218,7 @@ int main(int argc, char * argv[]){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      if (t > -0.05) t = 0.5 * (-0.05 + t0);
       cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
       fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
 	      n, W, q, Q, cth, t, t0, "ds/dt", ds[0], stat[0], 0., -0., "mub/GeV2");
@@ -224,6 +227,7 @@ int main(int argc, char * argv[]){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      if (t > -0.05) t = 0.5 * (-0.05 + t0);
       cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
       fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
 	      n, W, q, Q, cth, t, t0, "ds/dt", ds[1], stat[1], 0., -0., "mub/GeV2");
@@ -232,6 +236,7 @@ int main(int argc, char * argv[]){
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
       t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      if (t > -0.05) t = 0.5 * (-0.05 + t0);
       cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
       fprintf(f1007, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
 	      n, W, q, Q, cth, t, t0, "ds/dt", ds[2], stat[2], 0., -0., "mub/GeV2");
