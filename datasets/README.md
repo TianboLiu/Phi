@@ -10,4 +10,4 @@
 |1006|BONN 1974|5|ds/dt|---|[NPB70(1974)257](https://inspirehep.net/record/94756)|
 |---|DESY-094|---|---|---|[PLB56(1975)408](https://inspirehep.net/record/98876)|
 |---|SAPHIR|23|ds/dt|charged|[EPJA17(2003)269](https://inspirehep.net/record/621792#)|
-|---|Cornell 1972|ds/dt|---|[PLB39(1972)659(https://inspirehep.net/record/75747)|
+|---|Cornell 1972|4|ds/dt|---|[PLB39(1972)659(https://inspirehep.net/record/75747)|
