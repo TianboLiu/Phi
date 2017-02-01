@@ -89,7 +89,7 @@ int main(int argc, char * argv[]){
     double W, q, Q, cth, t, t0, ds, stat, syst1, syst2, syst3, syst4, temp;
     ifstream file("zeus2000.txt");
     for (int i = 0; i < 9; i++) file.getline(tmp, 256);
-    FILE * f1003 = fopen("../datasets/1003.csv", "w");
+    FILE * f1003 = fopen("datasets/1003.csv", "w");
     fprintf(f1003, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
     W = 94.0;
     q = (W * W - Mp * Mp) / (2.0 * W);
@@ -115,7 +115,7 @@ int main(int argc, char * argv[]){
     double W[7], q, Q, t, t0, cth, ds[7], stat[7], temp;
     ifstream file("desy094.txt");
     for (int i = 0; i < 8; i++) file.getline(tmp, 256);
-    FILE * f1004 = fopen("../datasets/1004.csv", "w");
+    FILE * f1004 = fopen("datasets/1004.csv", "w");
     fprintf(f1004, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
     for (int i = 0; i < 7; i++) 
       W[i] = 0.5 * (sqrt(pow(Eg[i] + Mp, 2) - Eg[i] * Eg[i]) + sqrt(pow(Eg[i+1] + Mp, 2) - Eg[i+1] * Eg[i+1]));
@@ -144,7 +144,7 @@ int main(int argc, char * argv[]){
     for (int i = 0; i < 7; i++) file.getline(tmp, 256);
     double Eg, q, Q, stat, syst, sig, temp;
     file >> Eg >> temp >> temp >> sig >> stat >> temp >> syst >> temp;
-    FILE * f1005 = fopen("../datasets/1005.csv", "w");
+    FILE * f1005 = fopen("datasets/1005.csv", "w");
     fprintf(f1005, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
     double W = sqrt(pow(Eg + Mp, 2) - Eg * Eg);
     q = (W * W - Mp * Mp) / (2.0 * W);
@@ -161,7 +161,7 @@ int main(int argc, char * argv[]){
     double W, q, Q, cth, t, t0, ds, stat, syst, temp;
     ifstream file("bonn1974a.txt");
     for (int i = 0; i < 9; i++) file.getline(tmp, 256);
-    FILE * f1006 = fopen("../datasets/1006.csv", "w");
+    FILE * f1006 = fopen("datasets/1006.csv", "w");
     fprintf(f1006, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
     W = sqrt(pow(2.0+Mp, 2) - 2.0 * 2.0);
     q = (W * W - Mp * Mp) / (2.0 * W);
@@ -184,7 +184,7 @@ int main(int argc, char * argv[]){
     double W, q, Q, cth, t, t0, ds[3], stat[3], temp;
     ifstream file1("lamp2a.txt");
     for (int i = 0; i < 9; i++) file1.getline(tmp, 256);
-    FILE * f1007 = fopen("../datasets/1007.csv", "w");
+    FILE * f1007 = fopen("datasets/1007.csv", "w");
     fprintf(f1007, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
     int n = 0;
     while (file1 >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp){
@@ -250,7 +250,7 @@ int main(int argc, char * argv[]){
     double W, q, Q, cth, t, t0, ds[2], stat[2], temp;
     ifstream file("slac1973.txt");
     for (int i = 0; i < 8; i++) file.getline(tmp, 256);
-    FILE * f1008 = fopen("../datasets/1008.csv", "w");
+    FILE * f1008 = fopen("datasets/1008.csv", "w");
     fprintf(f1008, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
     int n = 0;
     while (file >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp){
@@ -275,7 +275,47 @@ int main(int argc, char * argv[]){
     fclose(f1008);
     cout << "1008.csv written" << endl;
     file.close();
-  }	     
+  }
+
+  if (opt == 9){//Fermilab E401
+    double Eg, W, q, Q, cth, t, t0, ds, stat, temp;
+    ifstream file1("fermilab-e401a.txt");
+    for (int i = 0; i < 3; i++) file1.getline(tmp, 256);
+    FILE * f1009 = fopen("datasets/1009.csv", "w");
+    fprintf(f1009, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    while (file1 >> Eg >> temp >> temp >> ds >> stat){
+      W = sqrt(pow(Eg + Mp, 2) - Eg * Eg);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      fprintf(f1009, "%d,%.6E,%.6E,%.6E,%s,%s,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, "NA", "NA", t0, "sig", ds, stat, 0.08*ds, -0.08*ds, "mub");
+    }
+    fclose(f1009);
+    cout << "1009.csv written" <<  endl;
+    file1.close();
+    ifstream file2("fermilab-e401b.txt");
+    for (int i = 0; i < 3; i++) file2.getline(tmp, 256);
+    FILE * f1010 = fopen("datasets/1010.csv", "w");
+    fprintf(f1009, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    n = 0;
+    W = sqrt(pow(100.0 + Mp, 2) - 100.0 * 100.0);
+    q = (W * W - Mp * Mp) / (2.0 * W);
+    Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+    t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+    while (file2 >> t >> temp >> temp >> ds >> stat){
+      t = -t;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      fprintf(f1010, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, 0.08*ds, -0.08*ds, "mub/GeV2");
+    }
+    fclose(f1010);
+    cout << "1010.csv written" << endl;
+    file2.close();
+  }
+
+
 
   return 0;
 }
