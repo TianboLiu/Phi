@@ -245,8 +245,37 @@ int main(int argc, char * argv[]){
     fclose(f1007);
     cout << "1007.csv written" << endl;
   }
-      
-	     
+
+  if (opt == 8){//SLAC 1973
+    double W, q, Q, cth, t, t0, ds[2], stat[2], temp;
+    ifstream file("slac1973.txt");
+    for (int i = 0; i < 8; i++) file.getline(tmp, 256);
+    FILE * f1008 = fopen("../datasets/1008.csv", "w");
+    fprintf(f1008, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    while (file >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp){
+      t = -t;
+      W = sqrt(pow((2.8+4.7)/2.0 + Mp, 2) - pow((2.8+4.7)/2.0, 2));
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      if (ds[0] > 0)
+	fprintf(f1008, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, cth, t, t0, "ds/dt", ds[0], stat[0], 0.0, -0.0, "mub/GeV2");
+      W = sqrt(pow(9.3 + Mp, 2) - pow(9.3, 2));
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      if (ds[1] > 0)
+	fprintf(f1008, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, cth, t, t0, "ds/dt", ds[1], stat[1], 0.0, -0.0, "mub/GeV2");
+    }
+    fclose(f1008);
+    cout << "1008.csv written" << endl;
+    file.close();
+  }	     
 
   return 0;
 }
