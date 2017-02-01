@@ -1,0 +1,14 @@
+Path: /HepData/2988/d1-x1-y1 (Revised)
+Location: T 3
+P : 2.0 GeV
+RE : GAMMA P --> PHI P
+SQRT(S) : 2.152 GeV
+theta : THETA IN DEG
+t: IN GEV**2
+ds/dt: nb/GeV**2
+theta	t	#events	stat%	syst%	ds/dt	error
+30.0	-0.235	436	4.8	6.8	573.0	+39.0
+45.0	-0.361	272	6.1	7.8	323.0	+25.0
+54.0	-0.457	558	4.2	6.4	265.0	+17.0
+60.0	-0.530	156	8.0	9.3	146.0	+14.0
+75.0	-0.729	116	9.3	10.5	80.4	+8.5
