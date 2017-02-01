@@ -13,4 +13,5 @@
 |---|SAPHIR|23|ds/dt|---|[EPJA17(2003)269](https://inspirehep.net/record/621792#)|
 |---|Cornell 1972|4|ds/dt|---|[PLB39(1972)659](https://inspirehep.net/record/75747)|
 |---|ABBHHM|8|ds/dt|---|[PR175(1968)1669](https://inspirehep.net/record/52787)|
+|---|SLAC 1970|29|ds/dt|---|[PRD1(1970)27](https://inspirehep.net/record/54884)|
 
