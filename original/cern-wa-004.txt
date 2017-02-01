@@ -1,0 +1,8 @@
+Path: /HepData/2670/d1-x1-y1
+Location: P 11
+RE : GAMMA P --> PHI <K+ K-> P
+SQRT(S) : 6.197 GeV
+x : P IN GEV
+y : SIG IN NB
+xdesc	x	xlow	xhigh	y	dy+	dy-	dy+	dy-	
+	28.0	20.0	36.0	240.0	+6.0	-6.0	+20.0	-20.0
