@@ -10,6 +10,8 @@
 |1006|BONN 1974|5|ds/dt|---|[NPB70(1974)257](https://inspirehep.net/record/94756)|
 |1007|LAMP2|55|ds/dt|---|[PLB79(1978)150](https://inspirehep.net/record/131968)|
 |1008|SLAC 1973|10|ds/dt|---|[PRD7(1973)3150](https://inspirehep.net/record/73602)|
+|1009|Fermilab-E401|9|sigma|---|[PRD40(1989)1](https://inspirehep.net/record/285137)|
+|1010|Fermilab-E401|7|ds/dt|---|[PRD40(1989)1](https://inspirehep.net/record/285137)|
 |---|DESY-094|20|ds/dt|---|[PLB56(1975)408](https://inspirehep.net/record/98876)|
 |---|SAPHIR|23|ds/dt|---|[EPJA17(2003)269](https://inspirehep.net/record/621792#)|
 |---|Cornell 1972|4|ds/dt|---|[PLB39(1972)659](https://inspirehep.net/record/75747)|
