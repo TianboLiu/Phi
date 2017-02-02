@@ -13,6 +13,7 @@
 |1009|Fermilab-E401|9|sigma|---|[PRD40(1989)1](https://inspirehep.net/record/285137)|
 |1010|Fermilab-E401|7|ds/dt|---|[PRD40(1989)1](https://inspirehep.net/record/285137)|
 |1011|Fermilab-E25|9|sigma|---|[PRL43(1979)657](http://inspirehep.net/record/141059)|
+|1012|CLAS E93-031|8|ds/dt|---|PRL85(2000)4682](http://inspirehep.net/record/528835)|
 |---|DESY-094|20|ds/dt|---|[PLB56(1975)408](https://inspirehep.net/record/98876)|
 |---|SAPHIR|23|ds/dt|---|[EPJA17(2003)269](https://inspirehep.net/record/621792#)|
 |---|Cornell 1972|4|ds/dt|---|[PLB39(1972)659](https://inspirehep.net/record/75747)|
