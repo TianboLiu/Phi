@@ -335,6 +335,31 @@ int main(int argc, char * argv[]){
     file.close();
   }
 
+  if (opt == 11){//CLAS E93-031
+    double W, q, Q, cth, t, t0, ds, stat;
+    ifstream file("clasdb_E77M1.txt");
+    for (int i = 0; i < 8; i++) file.getline(tmp, 256);
+    FILE * f1012 = fopen("datasets/1012.csv", "w");
+    fprintf(f1012, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    W = sqrt(pow(3.6 + Mp, 2) - 3.6 * 3.6);
+    while (file >> t >> ds >> stat){
+      t = -t;
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      ds = ds / 1000.0;
+      stat = stat / 1000.0;
+      fprintf(f1012, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, 0.0, -0.0, "mub/GeV2");
+    }
+    fclose(f1012);
+    cout << "1012.csv written" << endl;
+    file.close();
+  }
+      
+
 
   return 0;
 }
