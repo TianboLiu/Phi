@@ -315,6 +315,25 @@ int main(int argc, char * argv[]){
     file2.close();
   }
 
+  if (opt == 10){//Fermilab E25
+    double Eg, W, q, Q, t0, ds, stat, temp;
+    ifstream file("fermilab-e25.txt");
+    for (int i = 0; i < 7; i++) file.getline(tmp, 256);
+    FILE * f1011 = fopen("datasets/1011.csv", "w");
+    fprintf(f1011, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    while (file >> Eg >> temp >> temp >> temp >> temp >> temp >> ds >> stat >> temp){
+      W = sqrt(pow(Eg + Mp, 2) - Eg * Eg);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      fprintf(f1011, "%d,%.6E,%.6E,%.6E,%s,%s,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, "NA", "NA", t0, "sig", ds, stat, 0.05*ds, -0.05*ds, "mub");
+    }
+    fclose(f1011);
+    cout << "1011.csv written" <<  endl;
+    file.close();
+  }
 
 
   return 0;
