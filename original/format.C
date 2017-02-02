@@ -369,7 +369,7 @@ int main(int argc, char * argv[]){
     for (int j = 0; j < 8; j++){
       ifstream file(files[j].data());
       for (int i = 0; i < 5; i++) file.getline(tmp, 256);
-      file >> tmp >> tmp >> W1 >> tmp >> W2 >> tmp;
+      file >> tmp >> tmp >> W1 >> tmp >> W2 >> tmp >> tmp;
       W = 0.5 * (W1 + W2);
       q = (W * W - Mp * Mp) / (2.0 * W);
       Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
