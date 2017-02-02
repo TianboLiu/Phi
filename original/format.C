@@ -358,6 +358,34 @@ int main(int argc, char * argv[]){
     cout << "1012.csv written" << endl;
     file.close();
   }
+
+  if (opt == 12){//LEPS
+    double W, q, Q, cth, t, t0, ds, stat, syst, temp, W1, W2;
+    string files[8] = {"leps2005a.txt", "leps2005b.txt", "leps2005c.txt", "leps2005d.txt", "leps2005e.txt", "leps2005f.txt", "leps2005g.txt", "leps2005h.txt"};
+    FILE * f1013 = fopen("datasets/1013.csv", "w");
+    fprintf(f1013, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    syst = sqrt(0.8 * 0.8 + 2.1 * 2.1 + 3.0 * 3.0) / 100.0;
+    int n = 0;
+    for (int j = 0; j < 8; j++){
+      ifstream file(files[j].data());
+      for (int i = 0; i < 5; i++) file.getline(tmp, 256);
+      file >> tmp >> tmp >> W1 >> tmp >> W2 >> tmp;
+      W = 0.5 * (W1 + W2);
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      for (int i = 0; i < 3; i++) file.getline(tmp, 256);
+      while (file >> t >> temp >> temp >> ds >> stat >> temp){
+	t = t + t0;
+	cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+	fprintf(f1013, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+		++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, ds*syst, -ds*syst, "mub/GeV2");
+      }
+      file.close();
+    }
+    fclose(f1013);
+    cout << "1013.csv written" << endl;
+  }
       
 
 
