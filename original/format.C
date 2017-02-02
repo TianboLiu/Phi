@@ -146,7 +146,7 @@ int main(int argc, char * argv[]){
     file >> Eg >> temp >> temp >> sig >> stat >> temp >> syst >> temp;
     FILE * f1005 = fopen("datasets/1005.csv", "w");
     fprintf(f1005, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
-    double W = sqrt(pow(Eg + Mp, 2) - Eg * Eg);
+    double W = 6.197;
     q = (W * W - Mp * Mp) / (2.0 * W);
     Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
     double t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
@@ -386,7 +386,24 @@ int main(int argc, char * argv[]){
     fclose(f1013);
     cout << "1013.csv written" << endl;
   }
-      
+     
+    if (opt == 13){//CERN-WA-057
+    ifstream file("cern-wa-057.txt");
+    for (int i = 0; i < 7; i++) file.getline(tmp, 256);
+    double Eg, q, Q, stat, syst, sig, temp;
+    file >> Eg >> temp >> temp >> sig >> stat >> temp >> syst >> temp;
+    FILE * f1014 = fopen("datasets/1014.csv", "w");
+    fprintf(f1014, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    double W = 6.197;
+    q = (W * W - Mp * Mp) / (2.0 * W);
+    Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+    double t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+    fprintf(f1014, "%d,%.6E,%.6E,%.6E,%s,%s,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	    1, W, q, Q, "NA", "NA", t0, "sig*Br", sig/1000, stat/1000, syst/1000, -syst/1000, "mub");
+    fclose(f1014);
+    cout << "1014.csv written" << endl;
+    file.close();
+  }
 
 
   return 0;
