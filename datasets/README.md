@@ -8,7 +8,7 @@
 |1004|DESY-094|110|ds/dt|---|[NPB144(1978)22](https://inspirehep.net/record/130415)|
 |1005|CERN-WA-004|1|sigma Br|---|[NPB172(1980)1](https://inspirehep.net/record/153022)|
 |1006|BONN 1974|5|ds/dt|---|[NPB70(1974)257](https://inspirehep.net/record/94756)|
-|1007|LAMP2|55|ds/dt|---|[PLB79(1978)150](https://inspirehep.net/record/131968)|
+|1007|LAMP2|55|ds/dt|---|[PLB79(1978)150](https://inspirehep.net/record/131968), [ZPC12(1982)1](http://inspirehep.net/record/168200)|
 |1008|SLAC 1973|10|ds/dt|---|[PRD7(1973)3150](https://inspirehep.net/record/73602)|
 |1009|Fermilab-E401|9|sigma|---|[PRD40(1989)1](https://inspirehep.net/record/285137)|
 |1010|Fermilab-E401|7|ds/dt|---|[PRD40(1989)1](https://inspirehep.net/record/285137)|
