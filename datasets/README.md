@@ -15,6 +15,7 @@
 |1011|Fermilab-E25|9|sigma|---|[PRL43(1979)657](http://inspirehep.net/record/141059)|
 |1012|CLAS E93-031|8|ds/dt|---|[PRL85(2000)4682](http://inspirehep.net/record/528835)|
 |1013|LEPS|32|ds/dt|---|[PRL95(2005)182001](http://inspirehep.net/record/684863)|
+|1014|CERN-WA-057|1|sigma Br|---|[ZPC27(1985)233](http://inspirehep.net/record/204590)|
 |---|DESY-094|20|ds/dt|---|[PLB56(1975)408](https://inspirehep.net/record/98876)|
 |---|SAPHIR|23|ds/dt|---|[EPJA17(2003)269](https://inspirehep.net/record/621792#)|
 |---|Cornell 1972|4|ds/dt|---|[PLB39(1972)659](https://inspirehep.net/record/75747)|
