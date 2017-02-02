@@ -18,4 +18,5 @@
 |---|ABBHHM|8|ds/dt|---|[PR175(1968)1669](https://inspirehep.net/record/52787)|
 |---|SLAC 1970|29|ds/dt|---|[PRD1(1970)27](https://inspirehep.net/record/54884)|
 |---|Cornell 1971|11|ds/dt|---|[PRL26(1971)1593](http://inspirehep.net/record/68983)|
+|---|SLAC 1973|10|ds/dt|---|[PRL30(1973)149](http://inspirehep.net/record/73541)|
 
