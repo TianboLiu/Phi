@@ -3,8 +3,8 @@ Measurement E77M1
 E93-031 CLAS experiment
 E. Anciant
 2000
-
--t variable	dsigma/dt	Data errors
+PLAB IN GEV : 3.3 TO 3.9 (MEAN=3.6)
+-t variable	dsigma/dt	Data errors (stat+syst)
 GeV^2	nb/GeV^2	nb/GeV^2
 0.525	171.8	12.8
 0.79	66.11	6.47
