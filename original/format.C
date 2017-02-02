@@ -387,7 +387,7 @@ int main(int argc, char * argv[]){
     cout << "1013.csv written" << endl;
   }
      
-    if (opt == 13){//CERN-WA-057
+  if (opt == 13){//CERN-WA-057
     ifstream file("cern-wa-057.txt");
     for (int i = 0; i < 7; i++) file.getline(tmp, 256);
     double Eg, q, Q, stat, syst, sig, temp;
@@ -405,6 +405,33 @@ int main(int argc, char * argv[]){
     file.close();
   }
 
+  if (opt == 14){//CLAS neutral
+    string files[9] = {"clas-e04-021a.txt", "clas-e04-021b.txt", "clas-e04-021c.txt", "clas-e04-021d.txt", "clas-e04-021e.txt", "clas-e04-021f.txt", "clas-e04-021g.txt", "clas-e04-021h.txt", "clas-e04-021i.txt"};
+    double Eg, W, q, Q, cth, tt[5], t[5], t0, ds[5], syst[5], stat[5];
+    FILE * f1015 = fopen("datasets/1015.csv", "w");
+    fprintf(f1015, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    for (int j = 0; j < 9; j++){
+      ifstream file(files[j].data());
+      file >> tt[0] >> tt[1] >> tt[2] >> tt[3] >> tt[4];
+      while (file >> Eg >> W >> ds[0] >> syst[0] >> stat[0] >> ds[1] >> syst[1] >> stat[1] >> ds[2] >> syst[2] >> stat[2] >> ds[3] >> syst[3] >> stat[3] >> ds[4] >> syst[4] >> stat[4]){
+	q = (W * W - Mp * Mp) / (2.0 * W);
+	Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+	t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+	for (int i = 0; i < 5; i++) t[i] = t0 - tt[i];
+	for (int i = 0; i < 5; i++){
+	  if (ds[i] > 0){
+	    cth = (t[i] + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+	    fprintf(f1015, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+		    ++n, W, q, Q, cth, t[i], t0, "ds/dt", ds[i], stat[i], syst[i], -syst[i], "mub/GeV2");
+	  }
+	}
+      }
+      file.close();
+    }
+    fclose(f1015);
+    cout << "1015.csv written" << endl;
+  }
 
   return 0;
 }
