@@ -1,0 +1,13 @@
+Path: /HepData/3097/d2-x1-y1
+Differential cross section as a function of T+ABS(TMIN) in the photon energy range 1.67 to 1.77 GeV
+Location: F 2
+ELAB IN GEV : 1.67 TO 1.77
+RE : GAMMA P --> PHI P
+SQRT(S) : 2.003 - 2.049 GeV
+x : T+ABS(TMIN) IN GEV**2
+y : DSIG/DT IN MUB/GEV**2
+xdesc	x	xlow	xhigh	y	dy+	dy-	
+	-0.05	-0.1	0.0	0.501	+0.053	-0.053
+	-0.15	-0.2	-0.1	0.328	+0.079	-0.079
+	-0.25	-0.3	-0.2	0.374	+0.087	-0.087
+	-0.35	-0.4	-0.3	0.238	+0.077	-0.077
