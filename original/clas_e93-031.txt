@@ -1,0 +1,18 @@
+Path: /HepData/5863/d1-x1-y1
+The differential PHI photoproduction cross section. The errors shown are the quadratic sum of the statistics and the systematic uncertainties which include 3 PCT for normalization, 5 PCT for acceptance and 5-15 PCT for background subtraction
+Location: F 6
+PLAB IN GEV : 3.3 TO 3.9 (MEAN=3.6)
+RE : GAMMA P --> PHI P
+SQRT(S) : 2.659 - 2.863 GeV
+x : -T IN GEV**2
+y : D(SIG)/DT IN NB/GEV**2
+xdesc	x	xlow	xhigh	y	dy+	dy-	
+	0.525	0.525	0.525	171.8	+12.8	-12.8
+	0.79	0.79	0.79	66.11	+6.47	-6.47
+	1.03	1.03	1.03	33.06	+3.74	-3.74
+	1.37	1.37	1.37	12.31	+1.71	-1.71
+	1.82	1.82	1.82	4.13	+0.76	-0.76
+	2.37	2.37	2.37	1.2	+0.34	-0.34
+	3.09	3.09	3.09	1.0	+0.2	-0.2
+	3.85	3.85	3.85	1.6	+0.29	-0.29
+  
