@@ -542,7 +542,7 @@ int main(int argc, char * argv[]){
         t = - t;
         cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
         stat = 0.5 * (dsup - dsdown);
-        syst = 0.0;
+        syst = 0.1 * ds;
         fprintf(f1019, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
                 ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, syst, -syst, "mub/GeV2");
       }
