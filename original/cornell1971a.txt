@@ -1,4 +1,4 @@
-E: 6.8
+E: 6.4
 -T: in GeV**2
 ds/dt: in mub/GeV**2
 0.013	2.390
