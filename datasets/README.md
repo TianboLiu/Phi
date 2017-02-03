@@ -21,7 +21,7 @@
 |1017|Cornell 1972|4|ds/dt|---|[PLB39(1972)659](https://inspirehep.net/record/75747)|
 |1018|DESY HBC|8|ds/dt|---|[PR175(1968)1669](https://inspirehep.net/record/52787)|
 |1019|Cornell 1971|11|ds/dt|---|[PRL26(1971)1593](http://inspirehep.net/record/68983)|
+|1020|SLAC 1970|31|ds/dt|---|[PRD1(1970)27](https://inspirehep.net/record/54884)|
 |---|DESY-094|20|ds/dt|---|[PLB56(1975)408](https://inspirehep.net/record/98876)|
-|---|SLAC 1970|29|ds/dt|---|[PRD1(1970)27](https://inspirehep.net/record/54884)|
 |---|SLAC 1973|10|ds/dt|---|[PRL30(1973)149](http://inspirehep.net/record/73541)|
 
