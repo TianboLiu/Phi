@@ -441,7 +441,7 @@ int main(int argc, char * argv[]){
     int n = 0;
     for (int j = 0; j < 4; j++){
       ifstream file(files[j].data());
-      file >> tmp >> E1 >> E2;
+      file >> tmp >> E1 >> E2 >> tmp;
       file.getline(tmp, 256);
       file.getline(tmp, 256);
       W = sqrt(pow(0.5 * (E1 + E2) + Mp, 2) - pow(0.5 * (E1 + E2), 2));
