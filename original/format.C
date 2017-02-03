@@ -464,6 +464,32 @@ int main(int argc, char * argv[]){
     cout << "1016.csv written" << endl;
   }
 
+  if (opt == 16){//Cornell 1972
+    double W, q, Q, cth, t, t0, ds, dsup, dsdown, stat, syst, temp;
+    ifstream file("cornell1972.txt");
+    for (int i = 0; i < 3; i++) file.getline(tmp, 256);
+    FILE * f1017 = fopen("datasets/1017.csv", "w");
+    fprintf(f1017, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    W = sqrt(pow(8.5 + Mp, 2) - 8.5 * 8.5);
+    q = (W * W - Mp * Mp) / (2.0 * W);
+    Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+    t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+    while (file >> t >> ds){
+      file >> temp >> dsup;
+      file >> temp >> dsdown;
+      t = -t;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      stat = 0.5 * (dsup - dsdown);
+      syst = 0.0;
+      fprintf(f1017, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+              ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, syst, -syst, "mub/GeV2");
+    }
+    fclose(f1017);
+    cout << "1017.csv written" << endl;
+    file.close();
+  }
+
 
   return 0;
 }
