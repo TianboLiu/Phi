@@ -490,7 +490,7 @@ int main(int argc, char * argv[]){
     file.close();
   }
 
-  if (opt == 17){//ABBHHM
+  if (opt == 17){//ABBHHM (DESY HBC)
     double E1, E2, W, q, Q, cth, t, t0, ds, dsup, dsdown, stat, syst, temp;
     string files[2] = {"abbhhma.txt", "abbhhmb.txt"};
     FILE * f1018 = fopen("datasets/1018.csv", "w");
@@ -521,6 +521,38 @@ int main(int argc, char * argv[]){
     cout << "1018.csv written" << endl;
   }
 
+   if (opt == 18){//ABBHHM
+    double E1, W, q, Q, cth, t, t0, ds, dsup, dsdown, stat, syst, temp;
+    string files[3] = {"cornell1971a.txt", "cornell1971b.txt", "cornell1971c.txt"};
+    FILE * f1019 = fopen("datasets/1019.csv", "w");
+    fprintf(f1019, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    for (int j = 0; j < 3; j++){
+      ifstream file(files[j].data());
+      file >> tmp >> E1 >> tmp;
+      file.getline(tmp, 256);
+      file.getline(tmp, 256);
+      W = sqrt(pow(E1 + Mp, 2) - pow(E1, 2));
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      while (file >> t >> ds){
+        file >> temp >> dsup;
+        file >> temp >> dsdown;
+        t = - t;
+        cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+        stat = 0.5 * (dsup - dsdown);
+        syst = 0.0;
+        fprintf(f1019, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+                ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, syst, -syst, "mub/GeV2");
+      }
+      file.close();
+    }
+    fclose(f1019);
+    cout << "1019.csv written" << endl;
+  }
+
+  
 
   return 0;
 }
