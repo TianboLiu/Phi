@@ -573,7 +573,7 @@ int main(int argc, char * argv[]){
         t = - t;
         cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
         stat = 0.5 * (dsup - dsdown);
-        syst = 0.1 * ds;
+        syst = 0.15 * ds;
         fprintf(f1020, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
                 ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, syst, -syst, "mub/GeV2");
       }
@@ -581,6 +581,53 @@ int main(int argc, char * argv[]){
     }
     fclose(f1020);
     cout << "1020.csv written" << endl;
+  }
+
+  if (opt == 20){//SLAC 1973L
+    double E1, W, q, Q, cth, t, t0, ds, dsup, dsdown, stat, syst, temp;
+    FILE * f1021 = fopen("datasets/1021.csv", "w");
+    fprintf(f1021, "i,W,q,Q,cth,t,t0,obs,value,stat,syst+,syst-,unit\n");
+    int n = 0;
+    ifstream file1("slac1973La.txt");
+    file1 >> tmp >> t >> tmp;
+    file1.getline(tmp, 256);
+    file1.getline(tmp, 256);
+    t = -t;
+    while (file1 >> E1 >> ds){
+      file1 >> temp >> dsup;
+      file1 >> temp >> dsdown;
+      W = sqrt(pow(E1 + Mp, 2) - pow(E1, 2));
+      q = (W * W - Mp * Mp) / (2.0 * W);
+      Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+      t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      stat = 0.5 * (dsup - dsdown);
+      syst = 0.0;
+      fprintf(f1021, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, syst, -syst, "mub/GeV2");
+    }
+    file1.close();
+    ifstream file2("slac1973Lb.txt");
+    file2 >> tmp >> E1 >> tmp;
+    file2.getline(tmp, 256);
+    file2.getline(tmp, 256);
+    W = sqrt(pow(E1 + Mp, 2) - pow(E1, 2));
+    q = (W * W - Mp * Mp) / (2.0 * W);
+    Q = sqrt((W * W - pow(Mp + Mphi, 2)) * (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+    t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
+    while (file2 >> t >> ds){
+      file2 >> temp >> dsup;
+      file2 >> temp >> dsdown;
+      t = -t;
+      cth = (t + 2.0 * q * sqrt(Mphi * Mphi + Q * Q) - Mphi * Mphi) / (2.0 * q * Q);
+      stat = 0.5 * (dsup - dsdown);
+      syst = 0.0;
+      fprintf(f1021, "%d,%.6E,%.6E,%.6E,%.6E,%.6E,%.6E,%s,%.6E,%.6E,%.6E,%.6E,%s\n",
+	      ++n, W, q, Q, cth, t, t0, "ds/dt", ds, stat, syst, -syst, "mub/GeV2");
+    }
+    file2.close();
+    fclose(f1021);
+    cout << "1021.csv written" << endl;
   }
 
   return 0;
