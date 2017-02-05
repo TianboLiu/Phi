@@ -1,1 +1,1 @@
-../mac-Makefile
+../Makefile

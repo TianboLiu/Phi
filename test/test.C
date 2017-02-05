@@ -13,5 +13,21 @@ int main(int argc, char * argv[]){
     MakeData(100);
   }
 
+  if (opt == 2){//
+    printdata();
+  }
+
+  if (opt == 3){//
+    plotdata();
+  }
+
+  if (opt == 4){//
+    mcmc1();
+  }
+
+  if (opt == 5){//
+    plotchain();
+  }
+
   return 0;
 }
