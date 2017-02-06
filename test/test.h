@@ -189,8 +189,8 @@ int comparisonplot(){
   loaddata();
   TGraphErrors * gd = new TGraphErrors(100, _x, _y, 0, _err);
   gd->SetMarkerStyle(8);
-  gd->SetMarkerSize(0.4);
-  gd->SetLineWidth(2);
+  gd->SetMarkerSize(0.8);
+  gd->SetLineWidth(1);
   gd->SetLineColor(1);
   char tmp[100];
   ifstream fmini("cov.txt");
