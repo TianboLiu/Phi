@@ -187,6 +187,8 @@ int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"
 
 int comparisonplot(){
   loaddata();
+  TH1D * base = new TH1D("base", "", 1, 0.0, 5.0);
+  base->GetYaxis()->SetRangeUser(-0.1, 1.0);
   TGraphErrors * gd = new TGraphErrors(100, _x, _y, 0, _err);
   gd->SetMarkerStyle(8);
   gd->SetMarkerSize(0.8);
@@ -214,7 +216,8 @@ int comparisonplot(){
   }
   gfcov->SetFillColor(4);
   TCanvas * c2 = new TCanvas("c2", "", 800, 600);
-  gd->Draw("ape");
+  base->Draw();
+  gd->Draw("pesame");
   gfcov->Draw("4same");
   c2->Print("c2.pdf");
   return 0;
