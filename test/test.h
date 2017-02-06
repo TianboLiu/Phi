@@ -209,8 +209,8 @@ int comparisonplot(){
   for (int i = 0; i < 500; i++){
     x = 0.01 * i;
     gfcov->SetPoint(i, x, f0(&x, minipar));
-    err = sqrt(pow(f0(&x, par0up) - f0(&x, par0down), 2) + pow(f0(&x, par1up) - f0(&x, par1down), 2)) / 2.0;
-    gfcov->SetPointError(i, 0, err);
+    error = sqrt(pow(f0(&x, par0up) - f0(&x, par0down), 2) + pow(f0(&x, par1up) - f0(&x, par1down), 2)) / 2.0;
+    gfcov->SetPointError(i, 0, error);
   }
   gfcov->SetFillColor(4);
   TCanvas * c2 = new TCanvas("c2", "", 800, 600);

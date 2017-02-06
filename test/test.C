@@ -33,6 +33,10 @@ int main(int argc, char * argv[]){
     minimizer();
   }
 
+  if (opt == 7){//
+    comparisonplot();
+  }
+
 
     
 
