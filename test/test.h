@@ -1,4 +1,3 @@
-#define _GLIBCXX_USE_CXX11_ABI 0
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -159,6 +158,7 @@ int plotchain(){
 }
 
 int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"){
+  loaddata();
   ROOT::Math::Minimizer * min = ROOT::Math::Factory::CreateMinimizer(minName, algoName);
   min->SetMaxFunctionCalls(10000);
   min->SetTolerance(1.0e-6);
