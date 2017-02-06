@@ -29,5 +29,12 @@ int main(int argc, char * argv[]){
     plotchain();
   }
 
+  if (opt == 6){//
+    minimizer();
+  }
+
+
+    
+
   return 0;
 }
