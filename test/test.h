@@ -10,6 +10,7 @@ using namespace std;
 #include "Math/Minimizer.h"
 #include "Math/Factory.h"
 #include "Math/Functor.h"
+#include "TMatrixDEigen.h"
 #include "TH1D.h"
 #include "TF1.h"
 
@@ -173,7 +174,10 @@ int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"
   cout << par[0] << "\t" << par[1] << "\t" << chi2(par) << "\t" << exp(-0.5 * chi2(par)) << endl;
   double cov[4];
   min->GetCovMatrix(cov);
-  cout << cov[0] << "\t" << cov[1] << endl;
-  cout << cov[2] << "\t" << cov[3] << endl; 
+  TMatrixD Cov(2,2);
+  Cov(0,0) = cov[0]; Cov(0,1) = cov[1]; Cov(1,0) = cov[2]; Cov(1,1) = cov[3];
+  TMatrixDEigen Eigen(Cov);
+  Cov.Print();
+  Eigen.Print();
   return 0;
 }
