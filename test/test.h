@@ -178,7 +178,9 @@ int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"
   Cov(0,0) = cov[0]; Cov(0,1) = cov[1]; Cov(1,0) = cov[2]; Cov(1,1) = cov[3];
   TMatrixDEigen Eigen(Cov);
   Cov.Print();
-  TMatrixD eigen = Eigen.GetEigenVectors();
-  eigen.Print();
+  TMatrixD Values = Eigen.GetEigenValues();
+  TMatrixD Vecs = Eigen.GetEigenVectors();
+  Values.Print();
+  Vecs.Print();
   return 0;
 }
