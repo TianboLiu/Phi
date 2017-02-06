@@ -171,10 +171,9 @@ int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"
   const double * xs = min->X();
   double par[2] = {xs[0], xs[1]};
   cout << par[0] << "\t" << par[1] << "\t" << chi2(par) << "\t" << exp(-0.5 * chi2(par)) << endl;
-  min->Hesse();
-  double hess[4];
-  min->GetHessianMatrix(hess);
-  cout << hess[0] << "\t" << hess[1] << endl;
-  cout << hess[2] << "\t" << hess[3] << endl; 
+  double cov[4];
+  min->GetCovMatrix(cov);
+  cout << cov[0] << "\t" << cov[1] << endl;
+  cout << cov[2] << "\t" << cov[3] << endl; 
   return 0;
 }
