@@ -1,3 +1,4 @@
+#define _GLIBCXX_USE_CXX11_ABI 0
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -7,6 +8,11 @@ using namespace std;
 #include "TGraphErrors.h"
 #include "TCanvas.h"
 #include "TGraph.h"
+#include "Math/Minimizer.h"
+#include "Math/Factory.h"
+#include "Math/Functor.h"
+#include "TH1D.h"
+#include "TF1.h"
 
 int MakeData(const int NN = 100){
   TRandom3 * random = new TRandom3(1);
@@ -70,11 +76,11 @@ int plotdata(){
   return 0;
 }
 
-double f0(double * x, double * par){
+double f0(const double * x, const double * par){
   return par[0] * exp(-par[1] * x[0]);
 }
 
-double f1(double * x, double * par){
+double f1(const double * x, const double * par){
   return par[0] * exp(-(par[1] + par[2]) * x[0]);
 }
 
@@ -93,7 +99,7 @@ int loaddata(){
   return 0;
 }
 
-double chi2(double * par){
+double chi2(const double * par){
   double sum = 0.0;
   for (int i = 0; i < 100; i++){
     sum += pow((f0(&_x[i], par) - _y[i]) / _err[i], 2);
@@ -149,5 +155,26 @@ int plotchain(){
   achain->Draw("aL");
   bchain->Draw("Lsame");
   c1->Print("c1.pdf");
+  return 0;
+}
+
+int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"){
+  ROOT::Math::Minimizer * min = ROOT::Math::Factory::CreateMinimizer(minName, algoName);
+  min->SetMaxFunctionCalls(10000);
+  min->SetTolerance(1.0e-6);
+  min->SetPrintLevel(1);
+  ROOT::Math::Functor f(&chi2, 2);
+  min->SetFunction(f);
+  min->SetVariable(0, "a", 1.0, 1.0e-4);
+  min->SetVariable(1, "b", 1.0, 1.0e-4);
+  min->Minimize();
+  const double * xs = min->X();
+  double par[2] = {xs[0], xs[1]};
+  cout << par[0] << "\t" << par[1] << "\t" << chi2(par) << "\t" << exp(-0.5 * chi2(par)) << endl;
+  min->Hesse();
+  double hess[4];
+  min->GetHessianMatrix(hess);
+  cout << hess[0] << "\t" << hess[1] << endl;
+  cout << hess[2] << "\t" << hess[3] << endl; 
   return 0;
 }
