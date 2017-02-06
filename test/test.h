@@ -184,3 +184,39 @@ int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"
   Vecs.Print();
   return 0;
 }
+
+int comparisonplot(){
+  loaddata();
+  TGraphErrors * gd = new TGraphErrors(100, _x, _y, 0, _err);
+  gd->SetMarkerStyle(8);
+  gd->SetMarkerSize(0.4);
+  gd->SetLineWidth(2);
+  gd->SetLineColor(1);
+  char tmp[100];
+  ifstream fmini("cov.txt");
+  fmini.getline(tmp, 100);
+  double minipar[2] = {1.09403, 1.03312};
+  double l0 = sqrt(0.004493);
+  double l1 = sqrt(3.712e-5);
+  double dpar0[2] = {0.9683, 0.2496};
+  double dpar1[2] = {-0.2496, 0.9683};
+  double par0up[2] = {minipar[0] + l0 * dpar0[0], minipar[1] + l0 * dpar0[1]};
+  double par0down[2] = {minipar[0] - l0 * dpar0[0], minipar[1] - l0 * dpar0[1]};
+  double par1up[2] = {minipar[0] + l1 * dpar1[0], minipar[1] + l1 * dpar1[1]};
+  double par1down[2] = {minipar[0] - l1 * dpar1[0], minipar[1] - l1 * dpar1[1]};
+  TGraphErrors * gfcov = new TGraphErrors(500);
+  double x, error;
+  for (int i = 0; i < 500; i++){
+    x = 0.01 * i;
+    gfcov->SetPoint(i, x, f0(&x, minipar));
+    err = sqrt(pow(f0(&x, par0up) - f0(&x, par0down), 2) + pow(f0(&x, par1up) - f0(&x, par1down), 2)) / 2.0;
+    gfcov->SetPointError(i, 0, err);
+  }
+  gfcov->SetFillColor(4);
+  TCanvas * c2 = new TCanvas("c2", "", 800, 600);
+  gd->Draw("ape");
+  gfcov->Draw("4same");
+  c2->Print("c2.pdf");
+  return 0;
+}
+		    
