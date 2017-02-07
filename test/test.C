@@ -47,6 +47,10 @@ int main(int argc, char * argv[]){
     comparisonplot();
   }
 
+  if (opt == 8){//
+    comparisonplotnaive("chain0_0.1.txt");
+  }
+
 
     
 

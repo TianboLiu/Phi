@@ -1,9 +1,14 @@
+#ifndef _TEST_H_
+#define _TEST_H_
+
 #include <iostream>
 #include <fstream>
 #include <cmath>
 using namespace std;
 
 #include "TRandom3.h"
+#include "TROOT.h"
+#include "TStyle.h"
 #include "TGraphErrors.h"
 #include "TCanvas.h"
 #include "TGraph.h"
@@ -171,10 +176,11 @@ int plotchain(const char * chainfile, const char * savefile){
   int n = 0;
   TGraph * achain = new TGraph(10000);
   TGraph * bchain = new TGraph(10000);
-  TH1D * afull = new TH1D("ha", "", 60, 0.7, 1.3);
-  TH1D * apost = new TH1D("pa", "", 60, 0.7, 1.3);
-  TH1D * bfull = new TH1D("hb", "", 60, 0.85, 1.15);
-  TH1D * bpost = new TH1D("pb", "", 60, 0.85, 1.15);
+  TH1D * afull = new TH1D("afull", "", 60, 0.7, 1.3);
+  afull->SetDirectory(0);
+  TH1D * apost = new TH1D("apost", "", 60, 0.7, 1.3);
+  TH1D * bfull = new TH1D("bfull", "", 60, 0.85, 1.15);
+  TH1D * bpost = new TH1D("bpost", "", 60, 0.85, 1.15);
   while (fchain >> t >> a >> b >> xx >> P){
     achain->SetPoint(n, t, a);
     bchain->SetPoint(n, t, b);
@@ -195,6 +201,7 @@ int plotchain(const char * chainfile, const char * savefile){
   bfull->SetLineColor(2);
   bpost->SetLineColor(2);
   bpost->SetLineWidth(2);
+  gStyle->SetOptStat(0);
   TCanvas * c1 = new TCanvas("c1", "", 1600, 1200);
   c1->Divide(2,2);
   c1->cd(1);
@@ -206,12 +213,68 @@ int plotchain(const char * chainfile, const char * savefile){
   achain->DrawClone("aL");
   bchain->DrawClone("Lsame");
   c1->cd(3);
-  afull->Draw();
-  apost->Draw("same");
+  afull->DrawClone();
+  apost->DrawClone("same");
   c1->cd(4);
-  bfull->Draw();
-  bpost->Draw("same");
+  bfull->DrawClone();
+  bpost->DrawClone("same");
   c1->Print(savefile);
+  afull->Delete();
+  apost->Delete();
+  bfull->Delete();
+  bpost->Delete();
+  achain->Delete();
+  bchain->Delete();
+  c1->Close();
+  return 0;
+}
+
+int comparisonplotnaive(const char * chainfile){
+  loaddata();
+  TH1D * base = new TH1D("base", "", 1, 0.0, 5.0);
+  base->GetYaxis()->SetRangeUser(-0.1, 1.1);
+  TGraphErrors * gd = new TGraphErrors(100, _x, _y, 0, _err);
+  gd->SetMarkerStyle(8);
+  gd->SetMarkerSize(0.8);
+  gd->SetLineWidth(1);
+  gd->SetLineColor(1);
+  TGraphErrors * gmc = new TGraphErrors(500);
+  double x, y, error, par[2];
+  double t, a, b, xx, P;
+  ifstream fc(chainfile);
+  TH1D * hc = new TH1D("hc", "", 3, 0.0, 3.0);
+  for (int i = 0; i < 500; i++){
+    x = 0.01 * i;
+    fc.clear();
+    fc.seekg(0, ios::beg);
+    while (fc >> t >> a >> b >> xx >> P){
+      if (t >= 2000){
+	par[0] = a;
+	par[1] = b;
+	hc->Fill(0.5, f0(&x, par));
+      }
+    }
+    y = hc->GetBinContent(1) / 8000.0;
+    gmc->SetPoint(i, x, y);
+    fc.clear();
+    fc.seekg(0, ios::beg);
+    while (fc >> t >> a >> b >> xx >> P){
+      if (t >= 2000){
+	par[0] = a;
+	par[1] = b;
+	hc->Fill(1.5, pow(f0(&x, par) - y, 2));
+      }
+    }
+    error = sqrt(hc->GetBinContent(2) / (8000.0 - 1.0));
+    gmc->SetPointError(i, 0, error);
+  }
+  fc.close();
+  gmc->SetFillColor(2);
+  TCanvas * c3 = new TCanvas("c3", "", 800, 600);
+  base->Draw();
+  gd->Draw("pesame");
+  gmc->Draw("4same");
+  c3->Print("c3.pdf");
   return 0;
 }
 
@@ -245,7 +308,7 @@ int minimizer(const char * minName = "Minuit2", const char * algoName = "Migrad"
 int comparisonplot(){
   loaddata();
   TH1D * base = new TH1D("base", "", 1, 0.0, 5.0);
-  base->GetYaxis()->SetRangeUser(-0.1, 1.0);
+  base->GetYaxis()->SetRangeUser(-0.1, 1.1);
   TGraphErrors * gd = new TGraphErrors(100, _x, _y, 0, _err);
   gd->SetMarkerStyle(8);
   gd->SetMarkerSize(0.8);
@@ -279,4 +342,6 @@ int comparisonplot(){
   c2->Print("c2.pdf");
   return 0;
 }
-		    
+
+
+#endif
