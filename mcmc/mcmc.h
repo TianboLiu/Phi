@@ -38,10 +38,11 @@ double Model1(const double * var, const double * par);
 double Model2(const double * var, const double * par);
 double (*Model)(const double *, const double *);
 double Chi2(const double * par);
-double Minimizer(const double * par0, const int Npar, const char * minName, const char * algoName);
+double Minimizer(const double * par0, const int Npar, double * res, const char * minName, const char * algoName);
 double MetropolicScan(const double * par0, const int Npar, const int steps);
 double MarkovChainScan(const double * par0, const int Npar);
 int CheckParameters(const double * par, const int Npar);
+double IndividualSetChi2(const int ID, const int errtype, const double * par);
 void ClearAll();
 double * _W, * _t, * _cth, * _ds, * _err, * _var2, * _model, * _chi2;
 int * _ID, * _obs;
@@ -162,12 +163,12 @@ double Chi2(const double * par){
   return sum;
 }
 
-double Minimizer(const double * par0, const int Npar, const char * minName = "Minuit2", const char * algoName = "Migrad"){//least chi-square search
+double Minimizer(const double * par0, const int Npar, double * res, const char * minName = "Minuit2", const char * algoName = "Migrad"){//least chi-square search
   ROOT::Math::Minimizer * min = ROOT::Math::Factory::CreateMinimizer(minName, algoName);
   min->SetMaxFunctionCalls(1000000);
   min->SetMaxIterations(10000);
   min->SetTolerance(1.0e-3);
-  min->SetPrintLevel(2);
+  min->SetPrintLevel(1);
   ROOT::Math::Functor f(&Chi2, Npar);
   min->SetFunction(f);
   string parName;
@@ -176,12 +177,15 @@ double Minimizer(const double * par0, const int Npar, const char * minName = "Mi
     pari.str("");
     pari << i;
     parName = "a" + pari.str();
-    min->SetVariable(i, parName.data(), par0[i], 1.0e-4);
+    min->SetVariable(i, parName.data(), par0[i], 1.0e-5);
     if (par0[i] == 0.0 || par0[i] == 1.0)
       min->FixVariable(i);
   }
   min->Minimize();
-  //min->PrintResults();
+  const double * X = min->X();
+  for (int i = 0; i < Npar; i++){
+    res[i] = X[i];
+  }
   return min->MinValue() / (_Npoints - Npar);
 }
 
@@ -228,6 +232,15 @@ double Model1(const double * var, const double * par){
 double Model2(const double * var, const double * par){
   return 2.0;
 }
+
+double IndividualSetChi2(const int ID, const int errtype, const double * par){
+  CreateEmptySet("oneset.dat");
+  AddSet(ID, "oneset.dat");
+  LoadData("oneset.dat", errtype);
+  double sum = Chi2(par);
+  return sum / _Npoints;
+}
+
 
 void ClearAll(){//release memory
   delete[] _ID;
