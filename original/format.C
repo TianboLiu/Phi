@@ -122,9 +122,9 @@ int main(int argc, char * argv[]){
     int n = 0;
     while (file >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp >> ds[2] >> stat[2] >> temp >> ds[3] >> stat[3] >> temp >> ds[4] >> stat[4] >> temp >> ds[5] >> stat[5] >> temp >> ds[6] >> stat[6] >> temp){
       for (int i = 0; i < 7; i++){
+	t = -t;
 	if (ds[i] > 0){
 	  n++;
-	  t = -t;
 	  q = (W[i] * W[i] - Mp * Mp) / (2.0 * W[i]);
 	  Q = sqrt((W[i] * W[i] - pow(Mp + Mphi, 2)) * (W[i] * W[i] - pow(Mp - Mphi, 2))) / (2.0 * W[i]);
 	  t0 = Mphi * Mphi - 2.0 * q * sqrt(Mphi * Mphi + Q * Q) + 2.0 * q * Q;
