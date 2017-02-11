@@ -121,8 +121,8 @@ int main(int argc, char * argv[]){
       W[i] = 0.5 * (sqrt(pow(Eg[i] + Mp, 2) - Eg[i] * Eg[i]) + sqrt(pow(Eg[i+1] + Mp, 2) - Eg[i+1] * Eg[i+1]));
     int n = 0;
     while (file >> t >> temp >> temp >> ds[0] >> stat[0] >> temp >> ds[1] >> stat[1] >> temp >> ds[2] >> stat[2] >> temp >> ds[3] >> stat[3] >> temp >> ds[4] >> stat[4] >> temp >> ds[5] >> stat[5] >> temp >> ds[6] >> stat[6] >> temp){
+      t = -t;
       for (int i = 0; i < 7; i++){
-	t = -t;
 	if (ds[i] > 0){
 	  n++;
 	  q = (W[i] * W[i] - Mp * Mp) / (2.0 * W[i]);
