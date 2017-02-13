@@ -36,9 +36,10 @@ int LoadData(const char * filename, const int errtype);
 double Model0(const double * var, const double * par);
 double Model1(const double * var, const double * par);
 double Model2(const double * var, const double * par);
+double Model3(const double * var, const double * par);
 double (*Model)(const double *, const double *);
 double Chi2(const double * par);
-double Minimizer(const double * par0, const int Npar, double * res, const char * minName, const char * algoName);
+double Minimizer(const double * par0, const int * fix, const int Npar, double * res, const char * minName, const char * algoName);
 double MetropolicScan(const double * par0, const int Npar, const int steps);
 double MarkovChainScan(const double * par0, const int Npar);
 int CheckParameters(const double * par, const int Npar);
@@ -163,12 +164,12 @@ double Chi2(const double * par){
   return sum;
 }
 
-double Minimizer(const double * par0, const int Npar, double * res, const char * minName = "Minuit2", const char * algoName = "Migrad"){//least chi-square search
+double Minimizer(const double * par0, const int * fix, const int Npar, double * res, const char * minName = "Minuit2", const char * algoName = "Migrad"){//least chi-square search
   ROOT::Math::Minimizer * min = ROOT::Math::Factory::CreateMinimizer(minName, algoName);
   min->SetMaxFunctionCalls(1000000);
   min->SetMaxIterations(10000);
   min->SetTolerance(1.0e-3);
-  min->SetPrintLevel(1);
+  min->SetPrintLevel(3);
   ROOT::Math::Functor f(&Chi2, Npar);
   min->SetFunction(f);
   string parName;
@@ -177,8 +178,8 @@ double Minimizer(const double * par0, const int Npar, double * res, const char *
     pari.str("");
     pari << i;
     parName = "a" + pari.str();
-    min->SetVariable(i, parName.data(), par0[i], 1.0e-5);
-    if (par0[i] == 0.0 || par0[i] == 1.0)
+    min->SetVariable(i, parName.data(), par0[i], 1.0e-4);
+    if (fix[i])
       min->FixVariable(i);
   }
   min->Minimize();
@@ -222,15 +223,52 @@ double Model1(const double * var, const double * par){
   double t0 = -2.0 * q * sqrt(Mphi * Mphi + Q * Q) + Mphi * Mphi + 2.0 * q * Q;
   double sr = (W * W - W0 * W0) / (Mp * Mp);
   double tr = (t0 - t) / (Mp * Mp);
-  double A0 = a[0] * atan(a[1] * pow(sr, a[2])) * (1.0 + a[3] / (pow(sr - a[4],2) + pow(a[4] * a[5],2)));
+  double A0 = a[0] * atan(a[1] * pow(sr, a[2])) * (1.0 + a[3] / (pow(sr - a[4],2) + pow(a[5],2)) );// * (1.0 + a[6] * pow(tr / sr, a[7]));
+  double B0 = b[0] * pow(sr, b[1]);
+  double B1 = 1.0 + b[3] * tr + b[4] * pow(tr, 2);
+  double AB = 1.0 * pow(sr, b[5] + b[6] * tr);
+  double ds = 100 * A0 * exp(-B0 * pow(tr, 1.0 + b[2])) * B1 * AB;
+  return ds;
+}
+
+double Model2(const double * var, const double * par){
+  double a[10], b[10];
+  for (int i = 0; i < 10; i++){
+    a[i] = par[i];
+    b[i] = par[i+10];
+  }
+  double W = var[0];
+  double t = var[1];
+  double q = (W * W - Mp * Mp) / (2.0 * W);
+  double Q = sqrt((W * W - pow(Mp + Mphi, 2)) *  (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+  double t0 = -2.0 * q * sqrt(Mphi * Mphi + Q * Q) + Mphi * Mphi + 2.0 * q * Q;
+  double sr = (W * W - W0 * W0) / (Mp * Mp);
+  double tr = (t0 - t) / (Mp * Mp);
+  double A0 = a[0] * log(1.0 + a[1] * pow(sr, a[2])) * (1.0 + a[3] / (pow(sr - a[4], 2) + pow(a[4] * a[5], 2)));
   double B0 = b[0] * pow(sr, b[1]);
   double B1 = 1.0 + b[3] * tr + b[4] * tr * tr;
   double ds = 100 * A0 * exp(-B0 * pow(tr, 1.0 - b[2])) * B1;
   return ds;
 }
 
-double Model2(const double * var, const double * par){
-  return 2.0;
+double Model3(const double * var, const double * par){
+  double a[10], b[10];
+  for (int i = 0; i < 10; i++){
+    a[i] = par[i];
+    b[i] = par[i+10];
+  }
+  double W = var[0];
+  double t = var[1];
+  double q = (W * W - Mp * Mp) / (2.0 * W);
+  double Q = sqrt((W * W - pow(Mp + Mphi, 2)) *  (W * W - pow(Mp - Mphi, 2))) / (2.0 * W);
+  double t0 = -2.0 * q * sqrt(Mphi * Mphi + Q * Q) + Mphi * Mphi + 2.0 * q * Q;
+  double sr = (W * W - W0 * W0) / (Mp * Mp);
+  double tr = (t0 - t) / (Mp * Mp);
+  double A0 = a[0] * log(1.0 + a[1] * pow(sr, a[2])) * (1.0);
+  double B0 = b[0] * pow(sr, b[1]);
+  double B1 = 1.0 + b[3] * tr + b[4] * tr * tr;
+  double ds = 100 * A0 * exp(-B0 * pow(tr, 1.0 - b[2])) * B1;
+  return ds;
 }
 
 double IndividualSetChi2(const int ID, const int errtype, const double * par){
